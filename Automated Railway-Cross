@@ -1,0 +1,74 @@
+// A project I made for my friend - simple small scale automation of a railway crossing using Arduino nano, Ultrasonic sensor , LEDS and servo motor.
+#include <Servo.h>
+Servo myservo;
+const int trigPin = 5;
+const int echoPin = 6;
+long duration;
+int distance;
+int pos;
+int led1=14;//green
+int led2=15;
+int buzz=10;
+int led3=16;
+int f=1;//closed
+void setup() {
+  myservo.attach(9);
+  pinMode(trigPin, OUTPUT); // Sets the trigPin as an Output
+  pinMode(echoPin, INPUT); // Sets the echoPin as an Input
+  pinMode(buzz, OUTPUT);
+  pinMode(led1, OUTPUT);
+  pinMode(led2, OUTPUT);
+  pinMode(led3, OUTPUT);
+  Serial.begin(9600); // Starts the serial communication
+  
+  
+
+}
+
+void loop() {
+  
+  
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  duration = pulseIn(echoPin, HIGH);
+  distance = duration*0.034/2;
+  Serial.print("Distance: ");
+  Serial.println(distance);
+  
+
+  if(distance<20)
+  {
+    
+    for(int j=30;j<=120;j++)
+    {
+      myservo.write(j);
+      delay(15);
+    }
+    f=1;
+    tone(buzz,810);
+    delay(6000);
+    
+  }
+  else
+  {
+    digitalWrite(led1, HIGH);
+    digitalWrite(led2, LOW);
+    digitalWrite(led3, LOW);
+    noTone(buzz);
+    if(f=1)
+    {
+      myservo.write(30);
+      f=0;
+      
+      
+    }
+    
+    
+  }
+
+  
+
+}
