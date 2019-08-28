@@ -7,7 +7,7 @@ Autoated Railway Crossing.
 
 A Decent Decentralised Railway-crossing automation using Arduino.
 
-i-ruler
+
 i-ruler is a cool and fun to do projrct which uses an Arduino nano with an ultra sonic sensor and lcd display to measure distance.
 
 
